@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>A library that allows using Htmx attributes with Feliz.ViewEngine</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <WarnOn>3390;$(WarnOn)</WarnOn>
+    <Version>0.1.0</Version>
+    <Author>Zaid Ajaj</Author>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Htmx.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Feliz.ViewEngine" Version="0.24.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="*.fsproj; *.fs;" PackagePath="fable\" />
+  </ItemGroup>
+</Project>

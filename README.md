@@ -7,8 +7,13 @@ A library that allows using [Htmx](https://htmx.org/) attributes with [Feliz.Vie
 dotnet add package Feliz.ViewEngine.Htmx
 ```
 
-### Use with AspNet controllers
+### Usage
+The library exposes the `hx` module and type which are the entry point to the attributes available from HTMX
+
 Here is an example AspNet controller (see `./sample` application) but this library can be used anywhere to render out HTML
+
+![gif](feliz-htmx.gif)
+
 ```fs
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging

@@ -39,6 +39,9 @@ type HomeController (logger : ILogger<HomeController>) =
         Html.button [
             hx.get "/Home/Clicked"
             hx.swap.outerHTML
+            hx.hyperscript [
+                on().click().toggle(".clicked").to'("me")
+            ]
             prop.text "Click me!"
         ]
     ]

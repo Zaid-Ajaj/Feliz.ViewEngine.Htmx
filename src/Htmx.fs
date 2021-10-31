@@ -2,6 +2,153 @@
 
 open Feliz.ViewEngine
 
+type HyperscriptBuilder() = 
+    let commands = ResizeArray<string>()
+
+    member this.click() = 
+        commands.Add "click"
+        this
+
+    member this.keyup() = 
+        commands.Add "keyup"
+        this
+
+    member this.mouseenter() = 
+        commands.Add "mouseenter"
+        this
+
+    member this.mouseleave() = 
+        commands.Add "mouseleave"
+        this
+
+    member this.take(content: string) =
+        commands.AddRange [ "take"; content ]
+        this
+
+    member this.for'(content: string) = 
+        commands.AddRange [ "for"; content ]
+        this
+
+    member this.put(content: string) = 
+        commands.AddRange [ "put"; content ]
+        this
+
+    member this.into(content: string) = 
+        commands.AddRange [ "into"; content ]
+        this
+
+    member this.the() = 
+        commands.Add "the"
+        this
+
+    member this.closest(content: string) = 
+        commands.AddRange [ "closest"; content ]
+        this
+
+    member this.first(content: string) = 
+        commands.AddRange [ "first"; content ]
+        this
+
+    member this.next(content: string) = 
+        commands.AddRange [ "next"; content ]
+        this
+
+    member this.wait(content: string) = 
+        commands.AddRange [ "wait"; content ]
+        this
+
+    member this.waitSeconds(seconds: int) = 
+        commands.AddRange [ "wait"; string seconds + "s" ]
+        this
+
+    member this.waitMilliseconds(milliseconds: int) = 
+        commands.AddRange [ "wait"; string milliseconds + "ms"]
+        this
+
+    /// <summary>Alias for then</summary>
+    member this.afterwards() = 
+        commands.Add "then"
+        this
+
+    member this.then'() = 
+        commands.Add "then"
+        this
+
+    member this.transition() = 
+        commands.Add "transition"
+        this
+
+    member this.opacity() = 
+        commands.Add "opacity"
+        this
+
+    member this.to'(content: string) = 
+        commands.AddRange ["to"; content] 
+        this
+
+    member this.to'(content: int) = 
+        commands.AddRange ["to"; string content] 
+        this
+
+    member this.add(content: string) = 
+        commands.AddRange [ "add"; content ]
+        this
+
+    member this.change() =
+        commands.Add "change"
+        this
+
+    member this.remove(content: string) = 
+        commands.AddRange [ "remove"; content ]
+        this
+
+    member this.every() = 
+        commands.Add "every"
+        this
+
+    member this.on() = 
+        commands.Add "on"
+        this
+
+    member this.on(content: string) = 
+        commands.AddRange [ "on"; content ]
+        this
+
+    member this.fetch(url: string) = 
+        commands.AddRange [ "fetch"; url ]
+        this
+
+    member this.toggle(content: string) = 
+        commands.AddRange [ "toggle"; content ]
+        this
+
+    member this.until(content: string) = 
+        commands.AddRange [ "until"; content ]
+        this
+    
+    member this.set(content: string) = 
+        commands.AddRange [ "set"; content ]
+        this
+
+    member this.or'() = 
+        commands.Add "or"
+        this
+
+    member this.touchbegin() = 
+        commands.Add "touchbegin"
+        this
+
+    member this.end'() = 
+        commands.Add "end"
+        this
+
+    member this.serialize() = String.concat " " commands
+
+[<AutoOpen>]
+module HypertextExtensions = 
+    let on() = HyperscriptBuilder().on()
+    let onEvent(ev: string) = HyperscriptBuilder().on(ev)
+
 type hx =
     /// <summary>
     /// Will cause an element to issue a POST to the specified URL and swap the HTML into the DOM using a swap strategy.
@@ -143,6 +290,28 @@ type hx =
             |> String.concat ", "
 
         prop.custom("hx-vals", sprintf "{%s}" valuesDict)
+
+    /// <summary>
+    /// HyperScript content
+    /// </summary>
+    static member hyperscript(script: string) = prop.custom("_", script)
+    /// <summary>
+    /// HyperScript content
+    /// </summary>
+    static member hyperscript(script: HyperscriptBuilder) = prop.custom("_", script.serialize())
+    /// <summary>
+    /// HyperScript content
+    /// </summary>
+    static member hyperscript(scripts: HyperscriptBuilder list) = 
+        let content = 
+            scripts
+            |> List.map (fun script -> script.serialize())
+            |> String.concat " "
+        prop.custom("_", content)
+    /// <summary>
+    /// HyperScript content
+    /// </summary>
+    static member hyperscript(script: string list) = prop.custom("_", String.concat " " script)
 
 module hx = 
     /// <summary>

@@ -38,7 +38,7 @@ type HomeController (logger : ILogger<HomeController>) =
 
         this.Render(mainLayout)
 
-    member this.Clicked() = this.Parial [
+    member this.Clicked() = this.Partial [
         Html.p "Content retrieved by HTMX"
     ]
 

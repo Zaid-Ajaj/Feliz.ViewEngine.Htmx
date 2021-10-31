@@ -13,13 +13,9 @@ type HomeController (logger : ILogger<HomeController>) =
         let htmlContent = Render.htmlView html
         this.Content(htmlContent, "text/html")
 
-    member private this.Parial(html: ReactElement list) = 
+    member private this.Partial(html: ReactElement list) = 
         let htmlContent = Render.htmlView (React.fragment html)
         this.Content(htmlContent, "text/html")
-
-    member private this.Path(method: string) =
-        let controllerName = nameof(HomeController).Replace(nameof(Controller), String.Empty)
-        $"/{controllerName}/{method}"
 
     member private this.MainLayout (body: ReactElement list) =  
         let mainLayout = Html.html [
@@ -34,7 +30,7 @@ type HomeController (logger : ILogger<HomeController>) =
 
         this.Render(mainLayout)
 
-    member this.Clicked() = this.Parial [
+    member this.Clicked() = this.Partial [
         Html.p "Content retrieved by HTMX"
     ]
 

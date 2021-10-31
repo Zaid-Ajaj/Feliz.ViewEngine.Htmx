@@ -9,7 +9,6 @@
   <ItemGroup>
     <Compile Include="Tools.fs" />
     <Compile Include="Files.fs" />
-    <Compile Include="Swag.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

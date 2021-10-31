@@ -41,10 +41,8 @@ type HomeController (logger : ILogger<HomeController>) =
     member this.Index() = this.MainLayout [
         Html.h1 "Home"
         Html.button [
-            hx.post "/Home/Clicked"
+            hx.get "/Home/Clicked"
             hx.swap.outerHTML
             prop.text "Click me!"
         ]
     ]
-
-

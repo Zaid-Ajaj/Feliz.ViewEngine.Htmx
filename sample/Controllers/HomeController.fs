@@ -40,7 +40,8 @@ type HomeController (logger : ILogger<HomeController>) =
             hx.get "/Home/Clicked"
             hx.swap.outerHTML
             hx.hyperscript [
-                on().click().toggle(".clicked").to'("me")
+                on().click().toggle(".clicked").to'("me").end'()
+                on().keyup().debounced().at(500).fetch("/search").then'().put().it().into("#result")
             ]
             prop.text "Click me!"
         ]

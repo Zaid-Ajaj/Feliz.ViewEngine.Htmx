@@ -33,6 +33,10 @@ type HyperscriptBuilder() =
         commands.AddRange [ "put"; content ]
         this
 
+    member this.put() = 
+        commands.Add "put"
+        this
+
     member this.into(content: string) = 
         commands.AddRange [ "into"; content ]
         this
@@ -140,6 +144,26 @@ type HyperscriptBuilder() =
 
     member this.end'() = 
         commands.Add "end"
+        this
+
+    member this.throttled() = 
+        commands.Add "throttled"
+        this
+
+    member this.debounced() = 
+        commands.Add "debounced"
+        this
+
+    member this.at(content: string) = 
+        commands.AddRange ["at"; content]
+        this
+
+    member this.at(millesconds: int) = 
+        commands.AddRange ["at"; string millesconds + "ms"]
+        this
+
+    member this.it() = 
+        commands.Add "it"
         this
 
     member this.serialize() = String.concat " " commands
